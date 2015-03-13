@@ -24,4 +24,7 @@
   notify: restart diamond
 
 - name: start diamond service
-  service: name=diamond state=started enabled=true
+  service: name=diamond state=started
+
+- name: enable diamond service
+  service: name=diamond enabled=true
