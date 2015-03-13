@@ -1,0 +1,27 @@
+---
+- name: install prerequisites
+  apt: name={{ item }} state=present
+  with_items:
+    - make
+    - pbuilder
+    - python-mock
+    - python-configobj
+    - python-support
+    - python-psutil
+    - cdbs
+
+- name: checkout Diamond
+  git: repo=https://github.com/python-diamond/Diamond.git dest=/root/Diamond
+
+- name: make builddeb
+  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.114_all.deb
+
+- name: install Diamond
+  apt: deb=/root/Diamond/build/diamond_4.0.114_all.deb
+
+- name: put Diamond config
+  template: src=diamond.conf dest=/etc/diamond/diamond.conf
+  notify: restart diamond
+
+- name: start diamond service
+  service: name=diamond state=started enabled=true
