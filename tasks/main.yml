@@ -14,10 +14,10 @@
   git: repo=https://github.com/python-diamond/Diamond.git dest=/root/Diamond
 
 - name: make builddeb
-  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.114_all.deb
+  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.117_all.deb
 
 - name: install Diamond
-  apt: deb=/root/Diamond/build/diamond_4.0.114_all.deb
+  apt: deb=/root/Diamond/build/diamond_4.0.117_all.deb
 
 - name: put Diamond config
   template: src=diamond.conf dest=/etc/diamond/diamond.conf
