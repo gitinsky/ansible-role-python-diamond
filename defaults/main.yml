@@ -1,0 +1,3 @@
+---
+opentsdb_port: 4242
+opentsdb_host: 127.0.0.1
