@@ -12,13 +12,13 @@
     - build-essential
 
 - name: checkout Diamond
-  git: repo=https://github.com/python-diamond/Diamond.git dest=/root/Diamond
+  git: repo=https://github.com/python-diamond/Diamond.git dest=/root/Diamond accept_hostkey=yes force=yes
 
 - name: make builddeb
-  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.122_all.deb
+  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.128_all.deb
 
 - name: install Diamond
-  apt: deb=/root/Diamond/build/diamond_4.0.122_all.deb
+  apt: deb=/root/Diamond/build/diamond_4.0.128_all.deb
 
 - name: put Diamond config
   template: src=diamond.conf dest=/etc/diamond/diamond.conf
