@@ -12,6 +12,18 @@
     - build-essential
   tags:
     - diamond
+  when: ansible_os_family  == "Debian"
+
+- name: install prerequisites
+  yum: name={{ item }} state=present
+  with_items:
+    - make
+    - python-mock
+    - python-configobj
+    - python-psutil
+  tags:
+    - diamond
+  when: ansible_os_family  == "RedHat"
 
 - name: checkout Diamond
   git: repo=https://github.com/python-diamond/Diamond.git dest=/root/Diamond accept_hostkey=yes force=yes
@@ -22,11 +34,25 @@
   shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.128_all.deb
   tags:
     - diamond
+  when: ansible_os_family  == "Debian"
+
+- name: make buildrpm
+  shell: cd /root/Diamond && make buildrpm creates=/root/Diamond/dist/diamond-4.0.198-0.noarch.rpm
+  tags:
+    - diamond
+  when: ansible_os_family  == "RedHat"
 
 - name: install Diamond
   apt: deb=/root/Diamond/build/diamond_4.0.128_all.deb
   tags:
     - diamond
+  when: ansible_os_family  == "Debian"
+
+- name: install Diamond
+  yum: name=/root/Diamond/dist/diamond-4.0.198-0.noarch.rpm
+  tags:
+    - diamond
+  when: ansible_os_family  == "RedHat"
 
 - name: put Diamond config
   template: src=diamond.conf dest=/etc/diamond/diamond.conf
