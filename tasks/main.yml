@@ -31,7 +31,7 @@
     - diamond
 
 - name: make builddeb
-  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.128_all.deb
+  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.243_all.deb
   tags:
     - diamond
   when: ansible_os_family  == "Debian"
@@ -43,7 +43,7 @@
   when: ansible_os_family  == "RedHat"
 
 - name: install Diamond
-  apt: deb=/root/Diamond/build/diamond_4.0.128_all.deb
+  apt: deb=/root/Diamond/build/diamond_4.0.114_all.deb
   tags:
     - diamond
   when: ansible_os_family  == "Debian"
