@@ -43,7 +43,7 @@
   when: ansible_os_family  == "RedHat"
 
 - name: install Diamond
-  apt: deb=/root/Diamond/build/diamond_4.0.114_all.deb
+  apt: deb=/root/Diamond/build/diamond_4.0.271_all.deb
   tags:
     - diamond
   when: ansible_os_family  == "Debian"
@@ -61,6 +61,9 @@
     - diamondconf
     - diamond
     - config
+
+- name: put cron.d file
+  template: src=diamond dest=/etc/cron.d/diamond
 
 - name: start diamond service
   service: name=diamond state=started
