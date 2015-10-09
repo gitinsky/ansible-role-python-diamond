@@ -30,8 +30,13 @@
   tags:
     - diamond
 
+- name: find out Dyamond version
+  shell: ./version.sh chdir=/root/Diamond
+  register: diamond_version
+  changed_when: no
+
 - name: make builddeb
-  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_4.0.243_all.deb
+  shell: cd /root/Diamond && make builddeb creates=/root/Diamond/build/diamond_{{ diamond_version.stdout }}_all.deb
   tags:
     - diamond
   when: ansible_os_family  == "Debian"
@@ -43,7 +48,7 @@
   when: ansible_os_family  == "RedHat"
 
 - name: install Diamond
-  apt: deb=/root/Diamond/build/diamond_4.0.271_all.deb
+  apt: deb=/root/Diamond/build/diamond_{{ diamond_version.stdout }}_all.deb
   tags:
     - diamond
   when: ansible_os_family  == "Debian"
