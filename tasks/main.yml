@@ -8,6 +8,7 @@
     - python-configobj
     - python-support
     - python-psutil
+    - python-pip
     - cdbs
     - build-essential
   tags:
