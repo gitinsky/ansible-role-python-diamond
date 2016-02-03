@@ -2,6 +2,7 @@
 - name: install prerequisites
   apt: name={{ item }} state=present
   with_items:
+    - git
     - make
     - pbuilder
     - python-mock
@@ -61,7 +62,7 @@
   when: ansible_os_family  == "RedHat"
 
 - name: put Diamond config
-  template: src=diamond.conf dest=/etc/diamond/diamond.conf
+  template: src=diamond.conf dest=/etc/diamond/diamond.conf backup=yes
   notify: restart diamond
   tags:
     - diamondconf
